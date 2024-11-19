@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                               @section('breadcrumb')
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('dashboard.dashboard')}}">Home</a></li>
                               @show
                             </ol>
                         </div><!-- /.col -->
@@ -263,7 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Anything you want
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; 2014-2021 <a href="https://www.linkedin.com/in/mo7amed-awad/">Mohamed Awad</a>.</strong> All rights
             reserved.
         </footer>
     </div>
