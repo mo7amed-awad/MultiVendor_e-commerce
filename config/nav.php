@@ -7,6 +7,7 @@ return[
         'active'=>'dashboard.dashboard'
     
     ],
+    
     [
         'icon'=>'fas fa-list',
         'route'=>'dashboard.categories.index',
@@ -15,6 +16,11 @@ return[
         'active'=>'dashboard.categories.*'
     
     ],
-
     
+    [
+        'icon'=>'fas fa-recycle',
+        'route'=>'dashboard.categories_trash',
+        'title'=>'Trashed Categories',
+        'active'=>'dashboard.categories_trash'
+    ],
 ];

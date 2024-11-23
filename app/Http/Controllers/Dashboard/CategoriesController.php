@@ -108,9 +108,9 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         $category->delete(); //هي ما بتحذف الابوجيكت هى بتحذف الداتا من الداتا من الداتا بيز بس الابوجيكت بيظل موجود وجواه بيناته على عكس ديستروي
-        if ($category->image) {
-            Storage::disk('public')->delete($category->image); //default is local disk
-        }
+        // if ($category->image) {
+        //     Storage::disk('public')->delete($category->image); //default is local disk
+        // }
         return Redirect::route('dashboard.categories.index')->with('success', 'Category Deleted!');
     }
 
@@ -125,5 +125,29 @@ class CategoriesController extends Controller
             'disk' => 'public',             //default is local disk
         ]);
         return $path;
+    }
+
+    public function trash()
+    {
+        $categories=Category::onlyTrashed()->paginate();
+        return view('dashboard.categories.trash',compact('categories'));
+    }
+    
+    public function restore(Request $request,$id)
+    {
+        $category=Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+        return redirect()->route('dashboard.categories_trash')->with('success','Category Restored!');
+    }
+
+    public function forcedelete($id)
+    {
+        $category=Category::onlyTrashed()->findOrFail($id);
+        $category->forceDelete();
+        if($category->image)
+        {
+              Storage::disk('public')->delete($category->image);
+        }
+        return redirect()->route('dashboard.categories_trash')->with('success','Category Deleted Forever!');
     }
 }

@@ -6,11 +6,11 @@ use App\Rules\Filter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
-
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['name', 'description', 'status', 'image', 'parent_id', 'slug'];
 
 
