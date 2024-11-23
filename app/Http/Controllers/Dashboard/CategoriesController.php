@@ -35,6 +35,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(Category::rules());
         $request->merge([
             'slug' => Str::slug($request->post('name')),
         ]);
@@ -83,11 +84,13 @@ class CategoriesController extends Controller
 
         $data = $request->except('image');
 
-        $data['image'] = $this->uploadImage($request);
-
+        $new_image= $this->uploadImage($request);
+        if($new_image){
+            $data['image']=$new_image;
+        }
         $category->update($data);
 
-        if ($old_image && isset($data['image'])) {
+        if ($old_image && $new_image) {
             Storage::disk('public')->delete($old_image); //default is local disk
         }
         return Redirect::route('dashboard.categories.index')->with('success', 'Category Updated!');

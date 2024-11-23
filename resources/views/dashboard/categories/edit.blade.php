@@ -4,8 +4,8 @@
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active"><a href="{{route('dashboard.categories.index')}}">Categories</a></li>
-    <li class="breadcrumb-item active">Edite Categories</li>
+    <li class="breadcrumb-item active"><a href="{{route('dashboard.categories.index')}}">Category</a></li>
+    <li class="breadcrumb-item active">Edite Category</li>
 @endsection
 
 @section('content')
