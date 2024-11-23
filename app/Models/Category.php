@@ -14,9 +14,19 @@ class Category extends Model
     protected $fillable = ['name', 'description', 'status', 'image', 'parent_id', 'slug'];
 
 
+    public function scopeFilter(Builder $builder,$filters){ //local scope must start with scope keyword
 
+        $builder->when($filters['name'] ?? false,function($builder,$value){
+            $builder->where('name','LIKE',"%{$value}%");
+        });
+            //=
+        if($filters['status'] ?? false){
+            $builder->where('status',$filters['status']);
+        }
 
+    }
 
+    
     public static function rules($id = 0)
     {
         return [

@@ -16,7 +16,13 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(2); //Return Collection object deal with it like array
+        $request=request();
+        $categories=Category::leftjoin('categories as parents','parents.id','=','categories.parent_id')
+        ->select([
+            'categories.*',
+            'parents.name as parent_name'
+        ])
+        ->filter($request->query())->paginate(2);
         return view('dashboard.categories.index', compact('categories'));
     }
 
