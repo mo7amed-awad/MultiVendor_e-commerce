@@ -23,4 +23,11 @@ return[
         'title'=>'Trashed Categories',
         'active'=>'dashboard.categories_trash'
     ],
+    
+    [
+        'icon'=>'fas fa-box',
+        'route'=>'dashboard.products.index',
+        'title'=>'Products',
+        'active'=>'dashboard.products.*'
+    ],
 ];
