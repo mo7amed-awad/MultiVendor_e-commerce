@@ -10,18 +10,7 @@
 @endif
 
 <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" name="name" id="name" @class([
-        'form-control',
-        'is-invalid'=>$errors->has('name')
-    ]) value="{{old('name' , $category->name)}}">
-    @error('name')
-    <div class="invalid-feedback">
-        {{ $message}}
-    </div>
-    @enderror
-</div>
-
+    <x-form.input label="Name" name="name" id="name" :value="$category->name"  type="text" />
 <div class="form-group">
     <label for="parent_id">Parent</label>
     <select name="parent_id" id="parent_id" class="form-control form-select">
@@ -33,13 +22,12 @@
 </div>
 
 <div class="form-group">
-    <label for="description">Description</label>
-    <textarea name="description" id="description" class="form-control">{{old('description',$category->description)}}</textarea>
+    <x-form.textarea label="Description" name="description" id="description" :value="$category->description"  />
 </div>
 
 <div class="form-group">
     <label for="image">Image</label>
-    <input type="file" name="image" id="image" class="form-control" accept="image/*">
+    <x-form.input type="file" name="image" id="image" accept="image/*" />
     @if($category->image)
     <img src="{{asset('storage/'.$category->image)}}" alt="" height="50px">
     @endif
@@ -48,14 +36,7 @@
 <div class="form-group">
     <label for="status">Status</label>
     <div>
-        <div class="form-check">
-            <input type="radio" class="form-check-input" name="status" value="active" @checked(old('status',$category->status)=='active')>
-            <label for="status" class="form-check-label">Active</label>
-        </div>
-        <div class="form-check">
-            <input type="radio" class="form-check-input" name="status" value="archived" @checked(old('status',$category->status)=='archived')>
-            <label for="status" class="form-check-label">Archived</label>
-        </div>
+        <x-form.radio name="status" :checked="$category->status" :options="['active'=>'Active','archived'=>'Archived']"/>
     </div>
 </div>
 

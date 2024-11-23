@@ -13,11 +13,7 @@
         <a href="{{route('dashboard.categories.create')}}" class="btn btn-sm btn-outline-primary">Create</a>
     </div>
 
-    @if(session()->has('success'))
-    <div class="alert alert-success">
-        {{session('success')}}
-    </div>
-    @endif
+<x-alert type="success" />
     <table class="table">
         <thead>
             <tr>
