@@ -16,6 +16,7 @@
     id="{{ $id }}"
     @class(['form-control', 'is-invalid' => $errors->has($name)])
     value="{{ old($name, $value) }}" 
+    {{$attributes}}
     {{-- {{ $attributes }} print any parameter that pass to the component but not defined in @props
       and if not define @props $attribute will print all parameter
       $attribute->class() --}}

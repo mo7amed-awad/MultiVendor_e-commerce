@@ -16,7 +16,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all(); //Return Collection object deal with it like array
+        $categories = Category::paginate(2); //Return Collection object deal with it like array
         return view('dashboard.categories.index', compact('categories'));
     }
 

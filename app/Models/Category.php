@@ -12,17 +12,11 @@ use Illuminate\Database\Eloquent\Builder;
 class Category extends Model
 {
     protected $fillable = ['name', 'description', 'status', 'image', 'parent_id', 'slug'];
-    public function scopeFilter(Builder $builder, $filters)
-    {
 
-        if ($filters['name'] ?? false) {
-            $builder->where('name', 'LIKE', "%{$filters['name']}%");
-        }
 
-        if ($filters['status'] ?? false) {
-            $builder->where('status', 'LIKE', $filters['status']);
-        }
-    }
+
+
+
     public static function rules($id = 0)
     {
         return [
