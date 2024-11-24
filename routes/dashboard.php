@@ -4,11 +4,12 @@ use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\CheckUserType;
 use Illuminate\Support\Facades\Route;
 
 
 Route::group([
-    'middleware'=>['auth','verified'],
+    'middleware'=>['auth','verified',CheckUserType::class],
     'as'=>'dashboard.',
     'prefix'=>'dashboard'
 ], function(){
