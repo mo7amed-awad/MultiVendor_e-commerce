@@ -1,6 +1,6 @@
 @props([
-    'name',
-    'id',
+    'name'=>'',
+    'id'=>'',
     'value'=>'',
     'label'=>false,
 ])

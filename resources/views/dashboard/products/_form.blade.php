@@ -1,7 +1,7 @@
 
 
 <div class="form-group">
-        <x-form.input label="Product Name" class="form-control-lg" role="input" name="name" :value="$product->name" />
+        <x-form.input label="Product Name" id="name" class="form-control-lg" role="input" name="name" :value="$product->name" />
     </div>
     <div class="form-group">
         <label for="">Category</label>
@@ -30,7 +30,7 @@
         <x-form.input label="Compare Price" name="compare_price" :value="$product->compare_price" />
     </div>
     <div class="form-group">
-        <x-form.input label="Tags" name="tags" :value="$tags" />
+        <x-form.input label="Tags" name="tags" :value="$tags??''" />
     </div>
     <div class="form-group">
         <label for="">Status</label>

@@ -47,10 +47,22 @@ class Product extends Model
     {
         return $this->belongsTo(Store::class);
     }
-    // public function tags()
-    // {
-    //     return $this->belongsToMany(Tag::class);
-    // }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function scopeFilter(Builder $builder,$filters){ //local scope must start with scope keyword
+
+        $builder->when($filters['name'] ?? false,function($builder,$value){
+            $builder->where('name','LIKE',"%{$value}%");
+        });
+            //=
+        if($filters['status'] ?? false){
+            $builder->where('status',$filters['status']);
+        }
+
+    }
 
     // public function scopeActive(Builder $builder)
     // {
