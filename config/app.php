@@ -66,6 +66,7 @@ return [
     */
 
     'timezone' => env('APP_TIMEZONE', 'UTC'),
+    'currency'=>'EUR',
 
     /*
     |--------------------------------------------------------------------------
@@ -121,6 +122,10 @@ return [
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
+    ],
+
+    'aliases' => [
+        'Currency' => App\Helpers\Currency::class,
     ],
 
 ];
