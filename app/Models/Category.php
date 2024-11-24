@@ -14,7 +14,18 @@ class Category extends Model
     use SoftDeletes,HasFactory;
     protected $fillable = ['name', 'description', 'status', 'image', 'parent_id', 'slug'];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 
+    public function parent(){
+        return $this->belongsTo(Category::class,'parent_id','id');
+    }
+    
+    public function childern(){
+        return $this->hasMany(Category::class,'parent_id','id');
+    }
     public function scopeFilter(Builder $builder,$filters){ //local scope must start with scope keyword
 
         $builder->when($filters['name'] ?? false,function($builder,$value){

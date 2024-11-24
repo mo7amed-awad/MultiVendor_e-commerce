@@ -30,6 +30,7 @@
                 <th>Image</th>
                 <th>Name</th>
                 <th>Parent</th>
+                <th>Producs #</th>
                 <th>Status</th>
                 <th>Created At</th>
                 <th colspan="2"></th>
@@ -40,8 +41,9 @@
                 <tr>
                     <td>{{ $categories->firstItem() + $loop->index }}</td>
                     <td><img src="{{ asset('storage/' . $category->image) }}" alt="" height="50px"></td>
-                    <td>{{ $category->name }}</td>
-                    <td>{{ $category->parent_name }}</td>
+                    <td><a href="{{route('dashboard.categories.show',$category)}}">{{ $category->name }}</a></td>
+                    <td>{{ $category->parent?->name }}</td>
+                    <td>{{ $category->products_count}}</td>
                     <td>{{ $category->status }}</td>
                     <td>{{ $category->created_at }}</td>
                     <td>
@@ -58,7 +60,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center bg-light text-secondary p-3">
+                    <td colspan="9" class="text-center bg-light text-secondary p-3">
                         <i class="fas fa-exclamation-circle"></i> No Categories Defined.
                     </td>
                 </tr>

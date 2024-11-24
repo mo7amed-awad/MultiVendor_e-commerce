@@ -35,9 +35,9 @@ class Product extends Model
             }
         });
 
-        static::creating(function (Product $product) {
-            $product->slug = Str::slug($product->name);
-        });
+        // static::creating(function (Product $product) {
+        //     $product->slug = Str::slug($product->name);
+        // });
     }
     public function category()
     {
@@ -52,60 +52,60 @@ class Product extends Model
     //     return $this->belongsToMany(Tag::class);
     // }
 
-    public function scopeActive(Builder $builder)
-    {
-        $builder->where('status', '=', 'active');
-    }
+    // public function scopeActive(Builder $builder)
+    // {
+    //     $builder->where('status', '=', 'active');
+    // }
 
     //Accessors
-    public function getImageUrlAttribute()
-    {
-        if (!$this->image) {
-            return 'https://www.incathlab.com/images/products/default_product.png';
-        }
-        if (Str::startsWith($this->image, ['http://', 'https://'])) {
-            return $this->image;
-        }
+    // public function getImageUrlAttribute()
+    // {
+    //     if (!$this->image) {
+    //         return 'https://www.incathlab.com/images/products/default_product.png';
+    //     }
+    //     if (Str::startsWith($this->image, ['http://', 'https://'])) {
+    //         return $this->image;
+    //     }
 
-        return asset('storage' . $this->image);
-    }
+    //     return asset('storage' . $this->image);
+    // }
 
-    public function getSalePercentAttribute()
-    {
-        if (!$this->compare_price) {
-            return 0;
-        }
+    // public function getSalePercentAttribute()
+    // {
+    //     if (!$this->compare_price) {
+    //         return 0;
+    //     }
 
-        return round(100 - (100 * $this->price / $this->compare_price), 1);
-    }
+    //     return round(100 - (100 * $this->price / $this->compare_price), 1);
+    // }
 
-    public function scopeFilter(Builder $builder, $filters)
-    {
-        $options = array_merge([
-            'store_id' => null,
-            'category_id' => null,
-            'tag_id' => [],
-            'status' => 'active',
-        ], $filters);
+//     public function scopeFilter(Builder $builder, $filters)
+//     {
+//         $options = array_merge([
+//             'store_id' => null,
+//             'category_id' => null,
+//             'tag_id' => [],
+//             'status' => 'active',
+//         ], $filters);
 
-        $builder->when($options['status'], function ($query, $status) {
-            return $query->where('status', $status);
-        });
-        $builder->when($options['store_id'], function ($builder, $value) {
-            $builder->where('store_id', $value);
-        });
+//         $builder->when($options['status'], function ($query, $status) {
+//             return $query->where('status', $status);
+//         });
+//         $builder->when($options['store_id'], function ($builder, $value) {
+//             $builder->where('store_id', $value);
+//         });
 
-        $builder->when($options['category_id'], function ($builder, $value) {
-            $builder->where('category_id', $value);
-        });
+//         $builder->when($options['category_id'], function ($builder, $value) {
+//             $builder->where('category_id', $value);
+//         });
 
-        $builder->when($options['tag_id'], function ($builder, $value) {
-            $builder->whereExists(function ($query) use ($value) {
-                $query->select(1)
-                    ->from('product_tag')
-                    ->whereRaw('product_id = products.id')
-                    ->where('tag_id', $value);
-            });
-        });
-    }
+//         $builder->when($options['tag_id'], function ($builder, $value) {
+//             $builder->whereExists(function ($query) use ($value) {
+//                 $query->select(1)
+//                     ->from('product_tag')
+//                     ->whereRaw('product_id = products.id')
+//                     ->where('tag_id', $value);
+//             });
+//         });
+//     }
 }
