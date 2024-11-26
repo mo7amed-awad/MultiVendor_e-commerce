@@ -15,6 +15,13 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/glightbox.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <style>
+        @media all {
+            .container {
+                display: block !important;
+            }
+        }
+    </style>
     @stack('styles')
 
 </head>
@@ -79,7 +86,10 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-                                <li><a href="index.html">Home</a></li>
+                                @auth('admin')
+                                <li><a href="{{route('dashboard.dashboard')}}">Dashboard</a></li>
+                                @endauth
+                                <li><a href="{{route('home')}}">Home</a></li>
                                 <li><a href="about-us.html">About Us</a></li>
                                 <li><a href="contact.html">Contact Us</a></li>
                             </ul>
@@ -87,18 +97,37 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
+
+                            @auth('web')
+                            <div class="user">
+                                <i class="lni lni-user"></i>
+                                {{Auth::user()->name}}
+                            </div>
+                            <ul class="user-login">
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout').submit()">Sign
+                                        Out</a>
+                                </li>
+                                <form action="{{ route('logout') }}" id="logout" method="post"
+                                    style="display:none">
+                                    @csrf
+                                </form>
+                            </ul>
+                            @else
                             <div class="user">
                                 <i class="lni lni-user"></i>
                                 Hello
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a href="login.html">Sign In</a>
+                                    <a href="{{route('login')}}">Sign In</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">Register</a>
+                                    <a href="{{route('register')}}">Register</a>
                                 </li>
                             </ul>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -216,7 +245,7 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a href="index.html" aria-label="Toggle navigation">Home</a>
+                                        <a href="{{route('home')}}" aria-label="Toggle navigation">Home</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="dd-menu active collapsed" href="javascript:void(0)"

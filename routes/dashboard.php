@@ -4,14 +4,13 @@ use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Middleware\CheckUserType;
 use Illuminate\Support\Facades\Route;
 
 
 Route::group([
-    'middleware'=>['auth','verified',CheckUserType::class],
+    'middleware'=>['auth:admin','verified'],
     'as'=>'dashboard.',
-    'prefix'=>'dashboard'
+    'prefix'=>'admin/dashboard'
 ], function(){
 
     Route::get('profile',[ProfileController::class,'edit'])->name('profile.edit');
