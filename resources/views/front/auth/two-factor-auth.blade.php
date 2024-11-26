@@ -27,7 +27,7 @@
                                     <h3>Recovery Codes</h3>
                                     <ul class="mb-3">
                                         @foreach($user->recoveryCodes() as $code)
-                                        <li>{{ $code }}</li>
+                                        <li>{{ $code }}<hr/></li>
                                         @endforeach
                                     </ul>
 
