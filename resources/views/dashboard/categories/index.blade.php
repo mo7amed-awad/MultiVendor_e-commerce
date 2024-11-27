@@ -10,7 +10,9 @@
 @section('content')
 
     <div class="mb-5">
+        @if(Auth::user()->can('categories.create'))
         <a href="{{ route('dashboard.categories.create') }}" class="btn btn-sm btn-outline-primary">Create</a>
+        @endif
     </div>
 
     <x-alert type="success" />
@@ -47,15 +49,19 @@
                     <td>{{ $category->status }}</td>
                     <td>{{ $category->created_at }}</td>
                     <td>
+                        @can('categories.update')
                         <a href="{{ route('dashboard.categories.edit', ['category' => $category]) }}"
                             class="btn btn-sm btn-outline-success">Edit</a>
+                        @endcan
                     </td>
                     <td>
+                        @can('categoreis.delete')
                         <form action="{{ route('dashboard.categories.destroy', $category) }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                         </form>
+                        @endcan
                     </td>
                 </tr>
             @empty

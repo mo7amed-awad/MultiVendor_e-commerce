@@ -13,7 +13,8 @@ return[
         'route'=>'dashboard.categories.index',
         'title'=>'Categories',
         'badge'=>'New',
-        'active'=>'dashboard.categories.*'
+        'active'=>'dashboard.categories.*',
+        'ability'=>'categories.view'
     
     ],
     
@@ -21,13 +22,21 @@ return[
         'icon'=>'fas fa-recycle',
         'route'=>'dashboard.categories_trash',
         'title'=>'Trashed Categories',
-        'active'=>'dashboard.categories_trash'
+        'active'=>'dashboard.categories_trash',
+        
     ],
     
     [
         'icon'=>'fas fa-box',
         'route'=>'dashboard.products.index',
         'title'=>'Products',
-        'active'=>'dashboard.products.*'
+        'active'=>'dashboard.products.*',
+        'ability'=>'products.view'
+    ],
+    [
+        'icon'=>'fas fa-user-shield',
+        'route'=>'dashboard.roles.index',
+        'title'=>'Roles',
+        'active'=>'dashboard.roles.*',
     ],
 ];

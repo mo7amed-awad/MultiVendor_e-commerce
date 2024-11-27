@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -16,6 +17,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+        if(!Gate::allows('categories.view'))
+        {
+            abort(403);
+        }
         $request=request();
         $categories=Category::with('parent')/*leftjoin('categories as parents','parents.id','=','categories.parent_id')*/
         // ->select([
@@ -32,6 +37,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        Gate::authorize('categories.create');
         $parents = Category::all();
         $category = new Category();
         return view('dashboard.categories.create', compact('parents', 'category'));
