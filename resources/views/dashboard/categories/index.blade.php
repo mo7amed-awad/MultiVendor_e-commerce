@@ -16,6 +16,7 @@
     </div>
 
     <x-alert type="success" />
+    <x-alert type="info" />
     <form action="{{ URL::current() }}" method="get" class="d-flex justify-content-between mb-4">
         <x-form.input name="name" placeholder="Name" class="mx-2" :value="request('name')" />
         <select name="status" class="form-control mx-2">
@@ -55,13 +56,11 @@
                         @endcan
                     </td>
                     <td>
-                        @can('categoreis.delete')
                         <form action="{{ route('dashboard.categories.destroy', $category) }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                         </form>
-                        @endcan
                     </td>
                 </tr>
             @empty

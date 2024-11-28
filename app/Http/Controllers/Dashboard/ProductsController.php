@@ -7,9 +7,9 @@ use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductsController extends Controller
 {
@@ -28,8 +28,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $product=new Product();
-        return view('dashboard.products.create',get_defined_vars());
+        $product = new Product();
+        return view('dashboard.products.create', get_defined_vars());
     }
 
     /**
@@ -37,15 +37,15 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $user=Auth::user();
-        $store_id=$user->store->id;
+        $user = Auth::user();
+        $store_id = $user->store->id;
         $request->merge([
             'slug' => Str::slug($request->post('name')),
         ]);
-        $data = $request->except('image','tags');
+        $data = $request->except('image', 'tags');
 
         $data['image'] = $this->uploadImage($request);
-        $data['store_id']=$store_id;
+        $data['store_id'] = $store_id;
         $product = Product::create($data);
 
         $tags = json_decode($request->tags);
@@ -125,7 +125,11 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image); //default is local disk
+        }
+        return Redirect::route('dashboard.products.index')->with('success', 'product Deleted!');
     }
 
     protected function uploadImage(Request $request)
@@ -133,9 +137,9 @@ class ProductsController extends Controller
         if (!$request->hasFile('image')) {
             return;
         }
-        $file = $request->file('image');    //UplodedFile Object
-        $path = $file->store('products', [   //دى بتاخد الملف من مكانه المؤقت الي الفولدر الي انت بتديهولها
-            'disk' => 'public',             //default is local disk
+        $file = $request->file('image'); //UplodedFile Object
+        $path = $file->store('products', [ //دى بتاخد الملف من مكانه المؤقت الي الفولدر الي انت بتديهولها
+            'disk' => 'public', //default is local disk
         ]);
         return $path;
     }
